@@ -16,6 +16,7 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        
     }
 
     /**
@@ -41,7 +42,7 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
@@ -168,17 +169,15 @@ public class login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        getAccessibleContext().setAccessibleName("LOGIN");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -197,9 +196,11 @@ public class login extends javax.swing.JFrame {
             if(rs.next()){
                 if(txt_usn.getText().equals(rs.getString("username"))
                         && txt_password.getText().equals(rs.getString("password"))){
-                        JOptionPane.showMessageDialog(null, "Berhasil Login [SELAMAT DATANG DI JEEANZ]");
-                        this.setVisible(false);
-                        new login().setVisible(true);
+                        int id_user = rs.getInt("id_user");
+                        String username = rs.getString("username");
+                        JOptionPane.showMessageDialog(null, "Berhasil Login, selamat datang " + username + "!");
+                        new AdminPage(id_user, username).setVisible(true);
+                        this.dispose();
                 }
             } else  {
                 JOptionPane.showMessageDialog(null, "username atau password salah");
